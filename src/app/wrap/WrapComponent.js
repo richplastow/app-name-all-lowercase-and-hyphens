@@ -7,7 +7,9 @@ APP.WrapComponent = class {
             new ng.core.Component({
                 selector: "app-wrap",
                 template: `
-<h1>App Name All Lowercase And Hyphens</h1>
+<div class="card card-block">
+  <h1 class="card-title">App Name All Lowercase And Hyphens</h1>
+</div>
 `
             })
         ]

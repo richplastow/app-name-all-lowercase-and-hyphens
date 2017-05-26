@@ -17,18 +17,19 @@ files? So many moving parts! So many things to go wrong!
 If you answered “yes”, then this is the repo for you. You can fork it and get
 going right away, or follow the steps detailed below:
 
-1. Create a GitHub repo for the app
-2. Clone the app to your dev machine
-3. Install dependencies from NPM
-4. Create directories and files
-5. Move useful files to ‘lib/’
-6. Create ‘index.html’
-7. Create ‘main.js’
-8. Create ‘src/app/wrap/WrapComponent.js’
-9. Create ‘src/app/wrap/WrapModule.js’
-10. Create ‘.gitignore’
-11. Create ‘README.md’
-12. Commit and push
+1. [Create a GitHub repo for the app](#create-a-github-repo-for-the-app)
+2. [Clone the app to your dev machine](#clone-the-app-to-your-dev-machine)
+3. [Install dependencies from NPM](#install-dependencies-from-npm)
+4. [Create project directories](#create-project-directories)
+5. [Copy files to ‘lib/’ and ‘asset/’](#copy-files-to-lib-and-asset)
+6. [Create ‘index.html’](#create-indexhtml)
+7. [Create ‘main.js’](#create-mainjs)
+8. [Create ‘src/app/wrap/WrapComponent.js’](#create-srcappwrapwrapcomponentjs)
+9. [Create ‘src/app/wrap/WrapModule.js’](#create-srcappwrapwrapmodulejs)
+10. [Create a stylesheet](#create-a-stylesheet)
+11. [Create ‘.gitignore’](#create-gitignore)
+12. [Create ‘README.md’](#create-readmemd)
+13. [Commit and push](#commit-and-push)
 
 
 ## Creating your app from scratch
@@ -71,36 +72,40 @@ __license:__ Same as you chose in GitHub, eg MIT
 ### Install dependencies from NPM
 
 ```bash
-                                                     # version  MB  items  repos
-npm install core-js --save                           # 2.4.1   2    1406   1  
-npm install rxjs --save                              # 5.4.0   3.1  1435   2  
-npm install zone.js --save                           # 0.8.11  1    79     1  
-npm install @angular/core --save                     # 4.1.3   5.1  155    1  
-npm install @angular/common --save                   # 4.1.3   1.6  73     1  
-npm install @angular/compiler --save                 # 4.1.3   9.8  231    1  
-npm install @angular/platform-browser --save         # 4.1.3   1.7  96     1  
-npm install @angular/platform-browser-dynamic --save # 4.1.3   0.1  51     1  
-npm install @angular/router --save                   # 4.1.3   2.3  81     1  
-npm install @angular/forms --save                    # 4.1.3   1.9  54     1  
-npm install @angular/http --save                     # 4.1.3   1    55     1  
+                                                # version  MB  items  repos
+npm i core-js --save                            # 2.4.1    2    1406   1  
+npm i rxjs --save                               # 5.4.0    3.1  1435   2  
+npm i zone.js --save                            # 0.8.11   1    79     1  
+npm i @angular/core --save                      # 4.1.3    5.1  155    1  
+npm i @angular/common --save                    # 4.1.3    1.6  73     1  
+npm i @angular/compiler --save                  # 4.1.3    9.8  231    1  
+npm i @angular/platform-browser --save          # 4.1.3    1.7  96     1  
+npm i @angular/platform-browser-dynamic --save  # 4.1.3    0.1  51     1  
+npm i @angular/router --save                    # 4.1.3    2.3  81     1  
+npm i @angular/forms --save                     # 4.1.3    1.9  54     1  
+npm i @angular/http --save                      # 4.1.3    1    55     1  
+npm i bootstrap-v4-dev --save                   # 4.0.0    4.5  435    3
 ```
 ...This should take about 60 seconds.
 
 
-### Create directories and files
+### Create project directories
 
 ```bash
-mkdir asset dist lib src src/app src/app/wrap src/demo src/test support
-touch src/app/wrap/WrapComponent.js src/app/wrap/WrapModule.js
+mkdir asset asset/style asset/fonts dist lib src src/app src/app/wrap src/demo\  
+      src/test support
 ```
 
 
-### Move useful files to ‘lib/’
+### Copy files to ‘lib/’ and ‘asset/’
 
 ```bash
+# 3rd Party Angular dependencies
 cp node_modules/core-js/client/shim.min.js lib/shim.min.js
 cp node_modules/rxjs/bundles/rx.min.js lib/rx.min.js
 cp node_modules/zone.js/dist/zone.min.js lib/zone.min.js
+
+# Angular libraries
 cp node_modules/@angular/core/bundles/core.umd.min.js lib/core.umd.min.js
 cp node_modules/@angular/common/bundles/common.umd.min.js lib/common.umd.min.js
 cp node_modules/@angular/compiler/bundles/compiler.umd.min.js lib/compiler.umd.min.js
@@ -111,6 +116,9 @@ cp node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynam
 cp node_modules/@angular/router/bundles/router.umd.min.js lib/router.umd.min.js
 cp node_modules/@angular/forms/bundles/forms.umd.min.js lib/forms.umd.min.js
 cp node_modules/@angular/http/bundles/http.umd.min.js lib/http.umd.min.js
+
+# Other 3rd Party libraries
+cp node_modules/bootstrap-v4-dev/dist/css/bootstrap.min.css asset/style/bootstrap.min.css
 ```
 ...the size of ‘lib/’ is 1.4 MB for 11 items.
 
@@ -122,8 +130,7 @@ APP_NAME=$(node -p '(require("./package.json")).name')
 APP_TITLE=$(node -p '(require("./package.json")).name.split("-").map(x=>x[0].toUpperCase()+x.slice(1)).join(" ")')
 APP_KEYWORDS=$(node -p '(require("./package.json")).keywords.join(" ")')
 APP_DESCRIPTION=$(node -p '(require("./package.json")).description')
-echo '
-<!DOCTYPE html>
+echo '<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -132,9 +139,11 @@ echo '
   <meta name="description" content="'$APP_DESCRIPTION'">
   <meta name="keywords" content="'$APP_KEYWORDS'">
 
-  <link rel="stylesheet" href="asset/'$APP_NAME'.css">
+  <!-- Page style (before Angular is ready) -->
+  <link rel="stylesheet" href="asset/style/bootstrap.min.css">
+  <link rel="stylesheet" href="asset/style/'$APP_NAME'.css">
 
-  <!-- 3rd Party libraries -->
+  <!-- 3rd Party Angular dependencies -->
   <script src="lib/shim.min.js"></script>
   <script src="lib/zone.min.js"></script>
   <script src="lib/rx.min.js"></script>
@@ -149,13 +158,16 @@ echo '
   <script src="lib/forms.umd.min.js"></script>
   <script src="lib/http.umd.min.js"></script>
 
+  <!-- Other 3rd Party libraries -->
+  <!-- @TODO -->
+
   <!-- App modules -->
-  <script src='src/app/wrap/WrapComponent.js'></script>
-  <script src='src/app/wrap/WrapModule.js'></script>
-  <script src='main.js'></script>
+  <script src="src/app/wrap/WrapComponent.js"></script>
+  <script src="src/app/wrap/WrapModule.js"></script>
+  <script src="main.js"></script>
 
 </head>
-<body>
+<body class="container m-t-1">
   <app-wrap>Loading...</app-wrap>
 </body>
 </html>' > index.html
@@ -190,7 +202,9 @@ APP.WrapComponent = class {
             new ng.core.Component({
                 selector: "app-wrap",
                 template: `
-<h1>'"$APP_TITLE"'</h1>
+<div class="card card-block">
+  <h1 class="card-title">'"$APP_TITLE"'</h1>
+</div>
 `
             })
         ]
@@ -229,10 +243,15 @@ show your app’s name. You can just double-click ‘index.html’ and use ‘fi
 protocol — no need to set up a local server.
 
 
+### Create a stylesheet
+```bash
+echo '/* css here overrides Twitter Bootstrap */' > "asset/style/$APP_NAME.css"
+```
+
+
 ### Create ‘.gitignore’
 ```bash
-echo '
-.DS_Store
+echo '.DS_Store
 Thumbs.db
 node_modules
 *.log

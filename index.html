@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +7,11 @@
   <meta name="description" content="A VR art gallery in A-Frame and Angular">
   <meta name="keywords" content="vr gallery webvr a-frame angular">
 
-  <link rel="stylesheet" href="asset/app-name-all-lowercase-and-hyphens.css">
+  <!-- Page style (before Angular is ready) -->
+  <link rel="stylesheet" href="asset/style/bootstrap.min.css">
+  <link rel="stylesheet" href="asset/style/app-name-all-lowercase-and-hyphens.css">
 
-  <!-- 3rd Party libraries -->
+  <!-- 3rd Party Angular dependencies -->
   <script src="lib/shim.min.js"></script>
   <script src="lib/zone.min.js"></script>
   <script src="lib/rx.min.js"></script>
@@ -22,16 +23,19 @@
   <script src="lib/platform-browser.umd.min.js"></script>
   <script src="lib/platform-browser-dynamic.umd.min.js"></script>
   <script src="lib/router.umd.min.js"></script>
-  <script src="lib/forms.umd.min.js"></sc ipt>
+  <script src="lib/forms.umd.min.js"></script>
   <script src="lib/http.umd.min.js"></script>
 
+  <!-- Other 3rd Party libraries -->
+  <!-- @TODO -->
+
   <!-- App modules -->
-  <script src=src/app/wrap/WrapComponent.js></script>
-  <script src=src/app/wrap/WrapModule.js></script>
-  <script src=main.js></script>
+  <script src="src/app/wrap/WrapComponent.js"></script>
+  <script src="src/app/wrap/WrapModule.js"></script>
+  <script src="main.js"></script>
 
 </head>
-<body>
+<body class="container m-t-1">
   <app-wrap>Loading...</app-wrap>
 </body>
 </html>

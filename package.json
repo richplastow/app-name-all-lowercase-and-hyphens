@@ -1,6 +1,6 @@
 {
   "name": "app-name-all-lowercase-and-hyphens",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A VR art gallery in A-Frame and Angular",
   "main": "main.js",
   "scripts": {
@@ -32,6 +32,7 @@
     "@angular/platform-browser": "^4.1.3",
     "@angular/platform-browser-dynamic": "^4.1.3",
     "@angular/router": "^4.1.3",
+    "bootstrap-v4-dev": "^4.0.0-alpha.5",
     "core-js": "^2.4.1",
     "rxjs": "^5.4.0",
     "zone.js": "^0.8.11"
